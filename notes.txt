@@ -1,0 +1,37 @@
+Building a Restful api
+1. npm init in the folder and provide the keywords 
+we get a package.json file 
+Installing dependencies - we install express framework in javascript to make out task easier
+We make a file called server.js to spin up all the code to set up the node js server
+
+const http = require('http') --> same as import statement we are importing http package and it provides some functionality
+const port = process.env.PORT
+--> process.env accesses node js environment variables and this would be set on the server we deploy it on 
+and if we do not find it we will simply host in on the 3000 port 
+
+const server = http.createServer()
+It takes a listener which is a function and it is executed whenever we get a new request and it is responsible for returning the response
+
+server.listen(port) --> listens to server on the port 
+
+app.js is created to spin up the express application which will make handling request easier
+
+in app.js we setup app.use() as a middleware in which we pass an arrow function where we get some req, res , and next (special function which we can execute to move the request to next middleware in line )
+
+we send a response by setting up the status code (200 is for everything ok ) and with the json response with the right header set up  which is string format 
+
+and at the end of the file we do module.exports = app
+
+now the app is passed to create server and the express application qualifies as a request handler 
+
+and now when we run the server on localhost:3000 we get to see the get request
+for post request we cannot simulate it easily on the browser 
+so we are using postman
+
+
+Error Handling: (important)
+Point 1 : to not have the work of starting the server again and again when we are doing some changes we are going to install nodemon(package) - it is a package that will monitor our file and automatically restart the server when we change something
+Add a script in package.json file to start using nodemon because it is not on our system
+
+morgan package : logging package for node js - it is just a middleware used for loggin and by using this in our terminal we are able to get the logs
+
