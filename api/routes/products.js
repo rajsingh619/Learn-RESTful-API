@@ -8,12 +8,18 @@ router.get('/',(req,res,next)=>{
 })            //get is a method that will handle all the get request the 1st argument is the URL 
 
 router.post('/',(req,res,next)=>{
+    const product = {          //we create a new javascript object as products
+        //and we want to get that name from the incoming request 
+        name: req.body.name,
+        price : req.body.price
+    }
     res.status(201).json({
-        message: 'Handling POST requests to /products.'
+        message: 'Handling POST requests to /products.',
+        createdProduct : product
     })
 })
 
-router.get('/:productId',(req,res,next)=>{                 //focus on the URL of how we are using : to get a variable 
+router.get('/:productId',(req,res,next)=>{                 //focus on the URL of how we are using : to get a variable in express
     const id = req.params.productId;
     if(id==='special'){
         res.status(200).json({

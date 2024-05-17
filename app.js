@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 
 const morgan = require('morgan');
-
+const bodyParser = require('body-parser');
 
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-app.use(morgan('dev'));``
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes)
@@ -24,8 +26,11 @@ app.use((req,res,next)=>{    //everything that comes after the abover routes wil
      error.status = 404;
      next(error);
 })
+// 404 error says that we did not found a fitting route 
 
-app.use((error,req,res,next)=>{
+//Error handling can be implemented by catching all the requests that get pass through the above middlewares
+
+app.use((error,req,res,next)=>{     //this will handle errors through anywhere in the application 
     res.status(error.status || 500);
     res.json({
         error:{

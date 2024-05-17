@@ -16,6 +16,10 @@ server.listen(port) --> listens to server on the port
 
 app.js is created to spin up the express application which will make handling request easier
 
+const express = require("express");
+const app = express()
+This spins up a express application where we can use all kinds of utility methods 
+
 in app.js we setup app.use() as a middleware in which we pass an arrow function where we get some req, res , and next (special function which we can execute to move the request to next middleware in line )
 
 we send a response by setting up the status code (200 is for everything ok ) and with the json response with the right header set up  which is string format 
