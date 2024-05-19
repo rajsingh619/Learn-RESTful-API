@@ -3,14 +3,36 @@ const app = express();
 
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
+mongoose.connect("mongodb+srv://rajsingh:"+ process.env.MONGO_ATLAS_PW +"@node-shop.chforur.mongodb.net/?retryWrites=true&w=majority&appName=node-shop",{
+    useMongoClient:true
+})
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+
+//Handling the CORS error before sending any response 
+app.use((req,res,next)=>{
+    res.header('Access-Control-Allow-Origin','*')  // adjusts the response with these headers
+    //the other parameter * gives access to all the URLs and it can be specific to some URLs also
+    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With,Content-Type, Accept,Authorization')  //It defines which header must be sent along with the request
+    if(req.method === 'OPTIONS'){
+        res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET')
+        return res.status(200).json({});
+    }
+    //method is the property which gives access to the HTTP request used on the request
+    //Browser will always send an options request first when we send a POST req /PUT req
+    //here the browser sees that if he can make the request
+    //header says to the browser what he may sent and set to all the HTTP verbs
+    // and then a response is sent back to the browser 
+    next();
+})
 
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes)
