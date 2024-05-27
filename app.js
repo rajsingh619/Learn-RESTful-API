@@ -9,9 +9,7 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-mongoose.connect("mongodb+srv://rajsingh:"+ process.env.MONGO_ATLAS_PW +"@node-shop.chforur.mongodb.net/?retryWrites=true&w=majority&appName=node-shop",{
-    useMongoClient:true
-})
+mongoose.connect("mongodb+srv://rajsingh:Rajsingh123@node-shop.chforur.mongodb.net/?retryWrites=true&w=majority&appName=node-shop")
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
